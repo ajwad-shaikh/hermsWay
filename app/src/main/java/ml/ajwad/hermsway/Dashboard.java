@@ -1,8 +1,5 @@
 package ml.ajwad.hermsway;
 
-
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -20,14 +17,20 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 public class Dashboard extends AppCompatActivity {
 
-    Button queryButton =  findViewById(R.id.queryButton);
-    final AutoCompleteTextView source = findViewById(R.id.sourceBox);
-    final AutoCompleteTextView dest = findViewById(R.id.destBox);
+    Button queryButton;
+    AutoCompleteTextView source;
+    AutoCompleteTextView dest;
+    Button minButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+
+        queryButton =  findViewById(R.id.queryButton);
+        minButton = findViewById(R.id.material_text_button);
+        source = findViewById(R.id.sourceBox);
+        dest = findViewById(R.id.destBox);
 
         LocalBroadcastManager.getInstance(this).
                 registerReceiver(waitforResponse, new IntentFilter("Inbox"));
@@ -36,6 +39,7 @@ public class Dashboard extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
+                minButton.setEnabled(false);
                 sendSMS();
             }
         });
@@ -47,12 +51,11 @@ public class Dashboard extends AppCompatActivity {
         Intent smsIntent = new Intent(Intent.ACTION_SENDTO, uri);
         smsIntent.putExtra("sms_body", "<hermsWay>\nSource : " +
                 source.getText() + "\nDestination : " + dest.getText() + "\n</hermsWay>");
-        Button prevButton = findViewById(R.id.material_text_button);
 
         try {
             startActivity(smsIntent);
             Log.i("Finished sending SMS...", "");
-            prevButton.setText("Waiting for Response...");
+            minButton.setText("Waiting for Response...");
 
         } catch (android.content.ActivityNotFoundException ex) {
             Toast.makeText(Dashboard.this,
@@ -63,7 +66,7 @@ public class Dashboard extends AppCompatActivity {
     @Override
     public void onResume() {
         LocalBroadcastManager.getInstance(this).
-                registerReceiver(waitforResponse, new IntentFilter("otp"));
+                registerReceiver(waitforResponse, new IntentFilter("Inbox"));
         super.onResume();
     }
 
@@ -72,7 +75,16 @@ public class Dashboard extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equalsIgnoreCase("Inbox")) {
                 final String message = intent.getStringExtra("message");
-                
+                minButton.setText("See Query Response!");
+                minButton.setEnabled(true);
+                minButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent routeIntent = new Intent(Dashboard.this, RouteDisplay.class);
+                        routeIntent.putExtra("routeText", message);
+                        startActivity(routeIntent);
+                    }
+                });
             }
         }
     };

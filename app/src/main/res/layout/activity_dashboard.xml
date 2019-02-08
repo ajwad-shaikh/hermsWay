@@ -93,16 +93,20 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="3">
+        android:layout_weight="3"
+        android:padding="14dp">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/material_text_button"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:strokeColor="@color/white"
+            app:strokeWidth="10sp"
             android:backgroundTint="@color/white"
             android:textColor="@color/white_bg"
-            android:text="See Previous Response..."
+            android:text="Send a Query to fetch Route Response..."
+            android:enabled="false"
             android:layout_centerInParent="true"
             android:textSize="20sp"
             app:cornerRadius="18dp"/>
