@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:weightSum="10"
+    android:background="@color/white_bg"
+    tools:context=".Dashboard">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/app_name"
+            android:textStyle="bold"
+            android:textSize="24sp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:padding="14dp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="6dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
+            android:background="@color/cardview_light_background"
+            app:cardElevation="18dp"
+            app:cardCornerRadius="18dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_margin="4dp"
+                android:padding="10dp"
+                android:weightSum="11"
+                android:orientation="vertical">
+
+                <AutoCompleteTextView
+                    android:id="@+id/sourceBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="4"
+                    android:ems="10"
+                    android:inputType="textAutoComplete"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="5dp"
+                    android:hint="Source" />
+
+                <AutoCompleteTextView
+                    android:id="@+id/destBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="4"
+                    android:ems="10"
+                    android:inputType="textAutoComplete"
+                    android:layout_marginBottom="5dp"
+                    android:hint="Destination" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/queryButton"
+                    style="@style/Widget.MaterialComponents.Button"
+                    android:layout_width="128dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="3"
+                    android:layout_gravity="center_horizontal"
+                    app:background="@color/white_bg"
+                    android:text="Query"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:cornerRadius="18dp"
+                    android:backgroundTint="@color/white_bg" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="3">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/material_text_button"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/white_bg"
+            android:text="See Previous Response..."
+            android:layout_centerInParent="true"
+            android:textSize="20sp"
+            app:cornerRadius="18dp"/>
+
+
+    </RelativeLayout>
+
+</LinearLayout>
