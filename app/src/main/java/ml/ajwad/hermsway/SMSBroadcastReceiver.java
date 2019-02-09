@@ -29,10 +29,11 @@ public class SMSBroadcastReceiver extends BroadcastReceiver{
                     shortMessage = new SmsMessage[pdus.length];
                     for (int i=0; i<shortMessage.length; i++){
                         shortMessage[i] = SmsMessage.createFromPdu((byte[]) pdus[i]);
+                        String sender = shortMessage[i].getOriginatingAddress();
                         String messageBody = shortMessage[i].getMessageBody();
                         sms_str += messageBody;
                         Log.d("Receive Message", messageBody);
-                        if(sms_str.startsWith("<hermsWay>")) {
+                        if(sender.contains("9123989841")) {
                             sms_str += ("\n" + shortMessage[i].getMessageBody());
                             Intent smsIntent = new Intent("Inbox");
                             smsIntent.putExtra("message", sms_str);

@@ -6,11 +6,17 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -49,17 +55,23 @@ public class Dashboard extends AppCompatActivity {
         Log.i("Send SMS", "");
         Uri uri = Uri.parse("smsto:7368960909");
         Intent smsIntent = new Intent(Intent.ACTION_SENDTO, uri);
-        smsIntent.putExtra("sms_body", "<hermsWay>\nSource : " +
-                source.getText() + "\nDestination : " + dest.getText() + "\n</hermsWay>");
+        String message = "<hermsWay>\nSource : " + source.getText() + "\nDestination : " +
+                dest.getText() + "\n</hermsWay>";
 
-        try {
-            startActivity(smsIntent);
-            Log.i("Finished sending SMS...", "");
-            minButton.setText("Waiting for Response...");
+        SmsManager smsManager = SmsManager.getDefault();
+        smsManager.sendTextMessage
+                ("+919123989841", null, message,
+                        null, null);
+        closeKeyboard();
+        minButton.setText("Waiting for Response...");
 
-        } catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(Dashboard.this,
-                    "SMS failed, please try again later.", Toast.LENGTH_SHORT).show();
+    }
+
+    private void closeKeyboard() {
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
 
@@ -82,6 +94,7 @@ public class Dashboard extends AppCompatActivity {
                     public void onClick(View v) {
                         Intent routeIntent = new Intent(Dashboard.this, RouteDisplay.class);
                         routeIntent.putExtra("routeText", message);
+                        Log.d("message: ", message);
                         startActivity(routeIntent);
                     }
                 });
