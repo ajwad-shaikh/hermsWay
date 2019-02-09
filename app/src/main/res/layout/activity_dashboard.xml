@@ -27,7 +27,7 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_weight="5"
+        android:layout_weight="6.5"
         android:padding="14dp">
 
         <androidx.cardview.widget.CardView
@@ -46,15 +46,15 @@
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:layout_margin="4dp"
                 android:padding="10dp"
-                android:weightSum="11"
+                android:weightSum="12"
                 android:orientation="vertical">
 
                 <AutoCompleteTextView
                     android:id="@+id/sourceBox"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="4"
-                    android:ems="10"
+                    android:layout_weight="3"
+                    android:ems="3"
                     android:inputType="textAutoComplete"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="5dp"
@@ -64,18 +64,47 @@
                     android:id="@+id/destBox"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="4"
+                    android:layout_weight="3"
                     android:ems="10"
                     android:inputType="textAutoComplete"
                     android:layout_marginBottom="5dp"
                     android:hint="Destination" />
+
+                <RadioGroup
+                    android:id="@+id/radioLangGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:orientation="horizontal"
+                    android:gravity="center_horizontal"
+                    android:layout_gravity="center_horizontal">
+
+                    <RadioButton
+                        android:id="@+id/en_lang"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="English"/>
+
+                    <RadioButton
+                        android:id="@+id/hi_lang"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Hindi"/>
+
+                    <RadioButton
+                        android:id="@+id/mr_lang"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Marathi"/>
+
+                </RadioGroup>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/queryButton"
                     style="@style/Widget.MaterialComponents.Button"
                     android:layout_width="128dp"
                     android:layout_height="0dp"
-                    android:layout_weight="3"
+                    android:layout_weight="3.75"
                     android:layout_gravity="center_horizontal"
                     app:background="@color/white_bg"
                     android:text="Query"
@@ -93,7 +122,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="3"
+        android:layout_weight="0.5"
         android:padding="14dp">
 
         <com.google.android.material.button.MaterialButton

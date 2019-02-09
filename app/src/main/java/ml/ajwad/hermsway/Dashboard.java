@@ -10,13 +10,11 @@ import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
-
-import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -28,6 +26,11 @@ public class Dashboard extends AppCompatActivity {
     AutoCompleteTextView dest;
     Button minButton;
 
+    private RadioGroup radioLangGroup;
+    private RadioButton radioLangButton;
+
+    int selectedId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +41,9 @@ public class Dashboard extends AppCompatActivity {
         source = findViewById(R.id.sourceBox);
         dest = findViewById(R.id.destBox);
 
+        selectedId = R.id.en_lang;
+        radioLangGroup = findViewById(R.id.radioLangGroup);
+
         LocalBroadcastManager.getInstance(this).
                 registerReceiver(waitforResponse, new IntentFilter("Inbox"));
 
@@ -46,6 +52,8 @@ public class Dashboard extends AppCompatActivity {
             public void onClick(View view)
             {
                 minButton.setEnabled(false);
+                selectedId = radioLangGroup.getCheckedRadioButtonId();
+                radioLangButton = findViewById(selectedId);
                 sendSMS();
             }
         });
@@ -56,7 +64,7 @@ public class Dashboard extends AppCompatActivity {
         Uri uri = Uri.parse("smsto:7368960909");
         Intent smsIntent = new Intent(Intent.ACTION_SENDTO, uri);
         String message = "<hermsWay>\nSource : " + source.getText() + "\nDestination : " +
-                dest.getText() + "\n</hermsWay>";
+                dest.getText() + "\nLang : " + radioLangButton.getText() + "\n</hermsWay>";
 
         SmsManager smsManager = SmsManager.getDefault();
         smsManager.sendTextMessage
