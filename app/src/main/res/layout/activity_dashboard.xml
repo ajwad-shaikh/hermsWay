@@ -14,20 +14,17 @@
         android:layout_height="0dp"
         android:layout_weight="2">
 
-        <TextView
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/app_name"
-            android:textStyle="bold"
-            android:textSize="24sp"/>
+            android:src="@drawable/icon"/>
 
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_weight="6.5"
+        android:layout_weight="5"
         android:padding="14dp">
 
         <androidx.cardview.widget.CardView
@@ -121,8 +118,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.5"
+        android:layout_height="0dp"
+        android:layout_weight="3"
         android:padding="14dp">
 
         <com.google.android.material.button.MaterialButton
@@ -134,12 +131,46 @@
             app:strokeWidth="10sp"
             android:backgroundTint="@color/white"
             android:textColor="@color/white_bg"
+            android:layout_centerHorizontal="true"
             android:text="Send a Query to fetch Route Response..."
             android:enabled="false"
-            android:layout_centerInParent="true"
             android:textSize="20sp"
             app:cornerRadius="18dp"/>
 
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/material_text_button"
+            android:layout_marginTop="20dp"
+            app:cardCornerRadius="5dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/server_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:text="HermsWay Server ID"
+                    android:textSize="16sp"
+                    android:textAlignment="center"/>
+
+                <AutoCompleteTextView
+                    android:id="@+id/server_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/server_label"
+                    android:inputType="phone"
+                    android:layout_margin="5dp"
+                    android:text="8349373459"/>
+
+            </RelativeLayout>
+
+
+
+        </androidx.cardview.widget.CardView>
 
     </RelativeLayout>
 
