@@ -14,7 +14,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -30,6 +29,7 @@ public class Dashboard extends AppCompatActivity {
     private RadioButton radioLangButton;
 
     int selectedId;
+    int senderID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,28 +47,21 @@ public class Dashboard extends AppCompatActivity {
         LocalBroadcastManager.getInstance(this).
                 registerReceiver(waitforResponse, new IntentFilter("Inbox"));
 
-        queryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view)
-            {
-                minButton.setEnabled(false);
-                selectedId = radioLangGroup.getCheckedRadioButtonId();
-                radioLangButton = findViewById(selectedId);
-                sendSMS();
-            }
+        queryButton.setOnClickListener(view -> {
+            minButton.setEnabled(false);
+            selectedId = radioLangGroup.getCheckedRadioButtonId();
+            radioLangButton = findViewById(selectedId);
+            sendSMS();
         });
     }
 
     protected void sendSMS(){
-        Log.i("Send SMS", "");
-        Uri uri = Uri.parse("smsto:7368960909");
-        Intent smsIntent = new Intent(Intent.ACTION_SENDTO, uri);
         String message = "<hermsWay>\nSource : " + source.getText() + "\nDestination : " +
                 dest.getText() + "\nLang : " + radioLangButton.getText() + "\n</hermsWay>";
-
+        Log.i("Send SMS", message);
         SmsManager smsManager = SmsManager.getDefault();
         smsManager.sendTextMessage
-                ("+919123989841", null, message,
+                ("+919179080356", null, message,
                         null, null);
         closeKeyboard();
         minButton.setText("Waiting for Response...");
@@ -97,14 +90,11 @@ public class Dashboard extends AppCompatActivity {
                 final String message = intent.getStringExtra("message");
                 minButton.setText("See Query Response!");
                 minButton.setEnabled(true);
-                minButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent routeIntent = new Intent(Dashboard.this, RouteDisplay.class);
-                        routeIntent.putExtra("routeText", message);
-                        Log.d("message: ", message);
-                        startActivity(routeIntent);
-                    }
+                minButton.setOnClickListener(v -> {
+                    Intent routeIntent = new Intent(Dashboard.this, RouteDisplay.class);
+                    routeIntent.putExtra("routeText", message);
+                    Log.d("message: ", message);
+                    startActivity(routeIntent);
                 });
             }
         }

@@ -31,9 +31,10 @@ public class SMSBroadcastReceiver extends BroadcastReceiver{
                         shortMessage[i] = SmsMessage.createFromPdu((byte[]) pdus[i]);
                         String sender = shortMessage[i].getOriginatingAddress();
                         String messageBody = shortMessage[i].getMessageBody();
-                        sms_str += messageBody;
+                        //sms_str += messageBody;
                         Log.d("Receive Message", messageBody);
-                        if(sender.contains("9123989841")) {
+                        Log.d("Sender ID", sender);
+                        if(messageBody.startsWith("<hW") && messageBody.endsWith("</hW>")) {
                             sms_str += ("\n" + shortMessage[i].getMessageBody());
                             Intent smsIntent = new Intent("Inbox");
                             smsIntent.putExtra("message", sms_str);
