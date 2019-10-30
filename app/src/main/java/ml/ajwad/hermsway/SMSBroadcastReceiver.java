@@ -11,7 +11,6 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 public class SMSBroadcastReceiver extends BroadcastReceiver{
 
-
     @Override
     public void onReceive(Context context, Intent intent)
     {
@@ -19,8 +18,6 @@ public class SMSBroadcastReceiver extends BroadcastReceiver{
             Bundle bundle = intent.getExtras();           //---get the SMS message passed in---
             SmsMessage[] shortMessage;
             String sms_str ="";
-            SmsMessage[] msgs = null;
-            String msg_from;
             if (bundle != null){
                 //---retrieve the SMS message received---
                 try{
@@ -34,7 +31,7 @@ public class SMSBroadcastReceiver extends BroadcastReceiver{
                         //sms_str += messageBody;
                         Log.d("Receive Message", messageBody);
                         Log.d("Sender ID", sender);
-                        if(messageBody.startsWith("<hW") && messageBody.endsWith("</hW>")) {
+                        if(messageBody.startsWith("<hW(") && messageBody.endsWith("</hW>")) {
                             sms_str += ("\n" + shortMessage[i].getMessageBody());
                             Intent smsIntent = new Intent("Inbox");
                             smsIntent.putExtra("message", sms_str);

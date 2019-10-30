@@ -28,6 +28,8 @@ public class Dashboard extends AppCompatActivity {
     private RadioGroup radioLangGroup;
     private RadioButton radioLangButton;
 
+    String splitMessages = "";
+
     int selectedId;
 
     @Override
@@ -87,15 +89,45 @@ public class Dashboard extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equalsIgnoreCase("Inbox")) {
-                final String message = intent.getStringExtra("message");
-                minButton.setText("See Query Response!");
-                minButton.setEnabled(true);
-                minButton.setOnClickListener(v -> {
-                    Intent routeIntent = new Intent(Dashboard.this, RouteDisplay.class);
-                    routeIntent.putExtra("routeText", message);
-                    Log.d("message: ", message);
-                    startActivity(routeIntent);
-                });
+                String message = intent.getStringExtra("message");
+                final String directionMessage = message.substring(10, message.length() - 5);
+                Log.d("directionMessage", directionMessage);
+                Log.d("charAt4", String.valueOf(message.charAt(4)));
+                Log.d("charAt6", String.valueOf(message.charAt(6)));
+                if (message.startsWith("<hW(1:1)>")) {
+                    minButton.setText("See Query Response!");
+                    minButton.setEnabled(true);
+                    minButton.setOnClickListener(v -> {
+                        Intent routeIntent = new Intent(Dashboard.this, RouteDisplay.class);
+                        routeIntent.putExtra("routeText", directionMessage);
+                        Log.d("message: ", directionMessage);
+                        startActivity(routeIntent);
+                    });
+                }
+                else if(message.charAt(5) == '1') {
+                    splitMessages = directionMessage;
+                    Log.d("splitMessages", splitMessages);
+                }
+                else if(message.charAt(5) == message.charAt(7)) {
+                    if(splitMessages.endsWith(directionMessage))
+                        return;
+                    splitMessages += directionMessage;
+                    minButton.setText("See Query Response!");
+                    minButton.setEnabled(true);
+                    minButton.setOnClickListener(v -> {
+                        Intent routeIntent = new Intent(Dashboard.this, RouteDisplay.class);
+                        routeIntent.putExtra("routeText", splitMessages);
+                        Log.d("message: ", splitMessages);
+                        startActivity(routeIntent);
+                    });
+                    Log.d("splitMessages", splitMessages);
+                }
+                else {
+                    if(splitMessages.endsWith(directionMessage))
+                        return;
+                    splitMessages += directionMessage;
+                    Log.d("splitMessages", splitMessages);
+                }
             }
         }
     };
