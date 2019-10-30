@@ -48,7 +48,8 @@
                 android:textAppearance="?textAppearanceHeadline6"
                 android:textStyle="bold"
                 android:textSize="20sp"
-                android:textAlignment="gravity">
+                android:textAlignment="gravity"
+                android:scrollbars="vertical">
 
             </TextView>
 

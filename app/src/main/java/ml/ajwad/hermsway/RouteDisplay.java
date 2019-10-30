@@ -1,14 +1,8 @@
 package ml.ajwad.hermsway;
 
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.text.method.ScrollingMovementMethod;
 import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.StringTokenizer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,6 +15,7 @@ public class RouteDisplay extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_route_display);
         TextView routeList = findViewById(R.id.routeList);
+        routeList.setMovementMethod(new ScrollingMovementMethod());
         String message = getIntent().getStringExtra("routeText");
         routeList.setText(message);
     }
